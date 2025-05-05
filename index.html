@@ -8,33 +8,43 @@
 <body>
   <input type="text" id="companyInput" placeholder="Enter company name" />
   <button id="generateButton">Generate Email</button>
-  <button id="copyButton" style="margin-left: 10px;">Copy to Clipboard</button>
+  <button id="copySubjectButton" style="margin-left: 10px;">Copy Subject</button>
+  <button id="copyBodyButton" style="margin-left: 10px;">Copy Body</button>
   <div id="output" style="white-space: pre-wrap; margin-top: 20px;"></div>
 
   <script>
     document.getElementById('generateButton').addEventListener('click', function() {
       const companyName = document.getElementById('companyInput').value.trim();
-      const email = generateEmail(companyName || "[Company Name]");
-      document.getElementById('output').innerHTML = email;
+      const { subject, body } = generateEmail(companyName || "[Company Name]");
+      document.getElementById('output').innerHTML = `<strong>${subject}</strong>\n\n${body}`;
     });
 
-    document.getElementById('copyButton').addEventListener('click', function() {
+    document.getElementById('copySubjectButton').addEventListener('click', function() {
+      const subject = "Sponsorship Opportunity with NorCal Robotics Team";
+      navigator.clipboard.writeText(subject).then(() => {
+        alert('Subject copied to clipboard!');
+      }).catch(err => {
+        alert('Failed to copy subject: ' + err);
+      });
+    });
+
+    document.getElementById('copyBodyButton').addEventListener('click', function() {
       const output = document.getElementById('output').innerText;
-      if (output) {
-        navigator.clipboard.writeText(output).then(() => {
-          alert('Email copied to clipboard!');
+      const body = output.split('\n\n').slice(1).join('\n\n'); // Exclude the subject
+      if (body) {
+        navigator.clipboard.writeText(body).then(() => {
+          alert('Email body copied to clipboard!');
         }).catch(err => {
-          alert('Failed to copy email: ' + err);
+          alert('Failed to copy email body: ' + err);
         });
       } else {
-        alert('No email to copy. Please generate an email first.');
+        alert('No email body to copy. Please generate an email first.');
       }
     });
 
     function generateEmail(companyName) {
-      return `<strong>Sponsorship Opportunity with NorCal Robotics Team</strong>\n\
-\n\
-Dear ${companyName},\n\
+      const subject = "Sponsorship Opportunity with NorCal Robotics Team";
+      const body = `Dear ${companyName},\n\
 \n\
 My name is Tejas Panicker, and I’m a sophomore at Fremont High School in Sunnyvale, CA. For the past two years, I’ve been a dedicated member of our school’s Junior Varsity and Varsity Robotics Teams, competing in the FIRST Tech Challenge. Last season, our team, the Infernobots, won first place at our local qualifier and advanced to the NorCal Championships, where we placed 4th in our division (There are 2 divisions), out of over 220 teams in Northern California.\n\
 \n\
@@ -59,6 +69,7 @@ We would love the opportunity to further discuss how we can collaborate. Thank y
 Sincerely,\n\
 Tejas\n\ \n\
 Funding Breakdown: https://docs.google.com/spreadsheets/d/1HoCrRMedYxOaHKO8JKJ-aYiH5ITBFnm9xfU2BCC29vc/edit?gid=0#gid=0`;
+      return { subject, body };
     }
   </script>
 </body>
