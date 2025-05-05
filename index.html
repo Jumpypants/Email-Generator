@@ -8,6 +8,7 @@
 <body>
   <input type="text" id="companyInput" placeholder="Enter company name" />
   <button id="generateButton">Generate Email</button>
+  <button id="copyButton" style="margin-left: 10px;">Copy to Clipboard</button>
   <div id="output" style="white-space: pre-wrap; margin-top: 20px;"></div>
 
   <script>
@@ -15,6 +16,19 @@
       const companyName = document.getElementById('companyInput').value.trim();
       const email = generateEmail(companyName || "[Company Name]");
       document.getElementById('output').innerHTML = email;
+    });
+
+    document.getElementById('copyButton').addEventListener('click', function() {
+      const output = document.getElementById('output').innerText;
+      if (output) {
+        navigator.clipboard.writeText(output).then(() => {
+          alert('Email copied to clipboard!');
+        }).catch(err => {
+          alert('Failed to copy email: ' + err);
+        });
+      } else {
+        alert('No email to copy. Please generate an email first.');
+      }
     });
 
     function generateEmail(companyName) {
