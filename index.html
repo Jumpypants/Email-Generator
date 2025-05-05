@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ignis Machina Email Generator</title>
+</head>
+<body>
+  <input type="text" id="companyInput" placeholder="Enter company name" />
+  <button id="generateButton">Generate Email</button>
+  <div id="output" style="white-space: pre-wrap; margin-top: 20px;"></div>
+
+  <script>
+    document.getElementById('generateButton').addEventListener('click', function() {
+      const companyName = document.getElementById('companyInput').value.trim();
+      const email = generateEmail(companyName || "[Company Name]");
+      document.getElementById('output').innerHTML = email;
+    });
+
+    function generateEmail(companyName) {
+      return `<strong>Subject: Sponsorship Opportunity with NorCal Robotics Team</strong>\n\
+\n\
+Dear ${companyName},\n\
+\n\
+My name is Tejas Panicker, and I’m a sophomore at Fremont High School in Sunnyvale, CA. For the past two years, I’ve been a dedicated member of our school’s Junior Varsity and Varsity Robotics Teams, competing in the FIRST Tech Challenge. Last season, our team, the Infernobots, won first place at our local qualifier and advanced to the NorCal Championships, where we placed 4th in our division (There are 2 divisions), out of over 220 teams in Northern California.\n\
+\n\
+This year, a few teammates and I, all of whom held leadership roles on the varsity team, are starting our own independent, community-based robotics team called <em>Ignis Machina</em> to compete in FIRST Tech Challenge. By branching off from the school team, we’ll have greater flexibility with scheduling, funding, and most importantly, team selection, allowing us to build a group of highly committed and passionate members.\n\
+\n\
+Our goal is ambitious: to win the NorCal Championships and qualify for the FIRST World Championships in Houston. To achieve this, we are seeking $10,000 in funding (see the attached breakdown) to support robot parts, registration fees, and travel expenses.\n\
+\n\
+We also aim to make a meaningful impact in our community by inspiring younger students to explore and pursue STEM. To achieve this, we plan to demo our robot at local elementary and middle school fairs, mentor FIRST LEGO League teams, and publish a free online guide to help rookie teams understand the FIRST Tech Challenge. In addition, we are developing a Java library for FTC based on work from previous seasons, which we plan to release publicly.\n\
+\n\
+We greatly admire ${companyName}’s innovative work and would be honored to partner with you as a sponsor. Your support would help empower the next generation of engineers and problem solvers.\n\
+\n\
+In appreciation of your support, we offer the following sponsorship benefits:\n\
+• $50–$100: Your company name and logo will be displayed on our team website.\n\
+• $101–$300: In addition to website recognition, your logo will appear on team merchandise worn at competitions.\n\
+• $301–$1,000: All the above benefits, plus your company’s name and logo featured on a visible part of our robot and signage at our team’s pit area during competitions.\n\
+• $1,001 and above: All previous benefits, plus a personalized thank-you video posted on our team’s Instagram page.\n\
+\n\
+Additionally, we are seeking a company willing to provide access to a CNC machine that we can use to manufacture custom parts throughout the season. Any company that supports us in this way will receive all the benefits of our highest sponsorship tier in recognition of their invaluable contribution.\n\
+\n\
+We would love the opportunity to further discuss how we can collaborate. Thank you for considering supporting our mission.\n\
+\n\
+Sincerely,\n\
+Tejas\n\ \n\
+Funding Breakdown: https://docs.google.com/spreadsheets/d/1HoCrRMedYxOaHKO8JKJ-aYiH5ITBFnm9xfU2BCC29vc/edit?gid=0#gid=0`;
+    }
+  </script>
+</body>
+</html>
